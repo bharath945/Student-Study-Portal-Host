@@ -1,0 +1,47 @@
+{% extends "app1/base.html" %}
+{% load static %} 
+{% block content %}
+
+<section class='text-center container'>
+    <h2>Search books and browse your favorite</h2>
+    <p>just enter the search query to obtain the results</p><b></b>
+    <form action="" method="post">
+        {{form.as_p}}
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="Submit">
+    </form><br>
+    {% for i in results %}
+    <a href="{{i.preview}}" target="_blank">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="img-fluid" src="{{i.thumbnail}}" alt="">
+
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="p-0 m-0">{{i.title}}</h3>
+                        <b>
+                            <u>
+                                <h5 class="p-0 m-0">{{i.subtitle}}</h5>
+                            </u>
+                        </b>
+                        <b> 
+                            <h6 class="ml-0 mt-3">Category: 
+                            {% for j in i.categories %}
+                                {{j}}
+                            {% endfor %}
+                            </h6>
+                            <h6 class="ml-0 mt-1">Pages: {{i.count}}</h6>
+                            <h6 class="ml-0 mt-1">Rating: {{i.rating}}</h6>
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    {%endfor%}
+    <br>
+</section>
+
+{% endblock content %}
